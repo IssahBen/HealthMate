@@ -148,6 +148,10 @@ https://wevotepushapi-0e45561659e2.herokuapp.com
     confirmPassword,
     isQuitting,
     setIsQuitting,
+    Login,
+    createUser,
+    destroySession,
+    setConfirmPassword,
   }; // Your actual context values
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
