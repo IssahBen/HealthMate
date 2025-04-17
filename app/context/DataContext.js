@@ -20,16 +20,22 @@ export function DataProvider({ children }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isQuitting, setIsQuitting] = useState(false);
   const [token, setToken] = useState("");
-  useEffect(async function () {
-    const token = await SecureStore.getItemAsync("token");
-    const userObj = await SecureStore.getItemAsync("user");
-    if (token && user) {
-      setToken(token);
-      setEmail(userObj.email);
-      setIsLoggedIn(true);
-      setFullName(userObj.first_name);
+
+  useEffect(() => {
+    async function Setter() {
+      const token = await SecureStore.getItemAsync("token");
+      const userObj = await SecureStore.getItemAsync("user");
+      if (token && userObj) {
+        // Changed from user to userObj
+        setToken(token);
+        setEmail(userObj.email);
+        setIsLoggedIn(true);
+        setFullName(userObj.first_name);
+      }
     }
+    Setter();
   }, []);
+
   async function createUser(obj) {
     try {
       setIsLoading(true);
