@@ -44,7 +44,7 @@ export default function Tabs() {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-ellipses" size={24} color={color} />
+            <Ionicons name="logo-electron" size={24} color={color} />
           ),
         }}
         listeners={({ navigation }) => ({
