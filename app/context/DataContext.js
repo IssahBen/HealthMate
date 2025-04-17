@@ -11,7 +11,30 @@ export function DataProvider({ children }) {
       timestamp: new Date().toLocaleTimeString(),
     },
   ]);
-  const value = {}; // Your actual context values
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isQuitting, setIsQuitting] = useState(false);
+  const value = {
+    messages,
+    setMessages,
+    isLoggedIn,
+    setIsLoggedIn,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isLoading,
+    setIsLoading,
+    fullName,
+    setFullName,
+    confirmPassword,
+    isQuitting,
+    setIsQuitting,
+  }; // Your actual context values
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
