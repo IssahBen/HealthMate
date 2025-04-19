@@ -36,10 +36,10 @@ export default function Signup() {
   const handleSignup = async () => {
     const formprops = {
       user: {
-        fullName: fullName,
+        username: fullName,
         email: email,
         password: password,
-        confirmPassword: confirmPassword,
+        password_confirmation: confirmPassword,
       },
     };
     setIsLoading(true);

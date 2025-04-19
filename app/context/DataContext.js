@@ -46,7 +46,7 @@ export function DataProvider({ children }) {
       setIsLoading(true);
 
       const res = await fetch(
-        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/register",
+        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/register",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -64,7 +64,7 @@ export function DataProvider({ children }) {
         setToken(data.token);
         return "success";
       } else {
-        setErrorMessage("Invalid email or password. Please try again.");
+        setErrorMessage(data.errors.join("||"));
         setVisible(true);
         console.log("error");
         return "error";
@@ -82,7 +82,7 @@ export function DataProvider({ children }) {
   async function destroySession() {
     try {
       const res = await fetch(
-        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/logout",
+        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/logout",
         {
           method: "DELETE",
           headers: {
@@ -99,6 +99,8 @@ export function DataProvider({ children }) {
       if (data.message) {
         setIsLoggedIn(false);
         await SecureStore.setItemAsync("token", "");
+        setToken("");
+        setEmail("");
         return "success";
       }
     } catch (error) {
@@ -110,7 +112,7 @@ export function DataProvider({ children }) {
   async function Login(obj) {
     try {
       const res = await fetch(
-        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/login",
+        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/login",
         {
           method: "POST",
           body: JSON.stringify(obj),
