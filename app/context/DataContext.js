@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
@@ -20,13 +21,17 @@ export function DataProvider({ children }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isQuitting, setIsQuitting] = useState(false);
   const [token, setToken] = useState("");
+  const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     async function Setter() {
       const token = await SecureStore.getItemAsync("token");
-      const userObj = await SecureStore.getItemAsync("user");
-      if (token && userObj) {
-        // Changed from user to userObj
+      const userObjStr = await SecureStore.getItemAsync("user");
+
+      if (token && userObjStr) {
+        const userObj = JSON.parse(userObjStr);
         setToken(token);
         setEmail(userObj.email);
         setIsLoggedIn(true);
@@ -41,11 +46,9 @@ export function DataProvider({ children }) {
       setIsLoading(true);
 
       const res = await fetch(
-        `
-https://wevotepushapi-0e45561659e2.herokuapp.com
-/api/v1/signup`,
+        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/register",
         {
-          method: "Post",
+          method: "POST",
           body: JSON.stringify(obj),
           headers: { "Content-Type": "application/json" },
         }
@@ -53,34 +56,35 @@ https://wevotepushapi-0e45561659e2.herokuapp.com
       const data = await res.json();
 
       if (data.token) {
-        SecureStore.setItemAsync("user", JSON.stringify(data.user));
-        SecureStore.setItemAsync("token", data.token);
+        await SecureStore.setItemAsync("user", JSON.stringify(data.user));
+        await SecureStore.setItemAsync("token", data.token);
         setIsLoggedIn(true);
-
         setFullName(data.user.first_name);
         setEmail(data.user.email);
         setToken(data.token);
         return "success";
       } else {
+        setErrorMessage("Invalid email or password. Please try again.");
+        setVisible(true);
         console.log("error");
         return "error";
       }
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
+      setErrorMessage("Network or server error. Please try again later.");
+      setVisible(true);
       return "error";
     } finally {
       setIsLoading(false);
     }
   }
+
   async function destroySession() {
     try {
       const res = await fetch(
-        `
-https://wevotepushapi-0e45561659e2.herokuapp.com
-/api/v1/logout`,
+        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/logout",
         {
-          method: "delete",
-          body: JSON.stringify(),
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             "X-User-Token": token,
@@ -94,50 +98,79 @@ https://wevotepushapi-0e45561659e2.herokuapp.com
       }
       if (data.message) {
         setIsLoggedIn(false);
+        await SecureStore.setItemAsync("token", "");
         return "success";
       }
-    } catch {
-      console.log("There was an error.");
-    } finally {
+    } catch (error) {
+      console.log("There was an error.", error);
+      return "error";
     }
   }
+
   async function Login(obj) {
     try {
-      setIsLoading(true);
       const res = await fetch(
-        `
-https://wevotepushapi-0e45561659e2.herokuapp.com
-/api/v1/login`,
+        "https://2c0a-99-230-98-234.ngrok-free.app/api/v1/login",
         {
-          method: "Post",
+          method: "POST",
           body: JSON.stringify(obj),
           headers: { "Content-Type": "application/json" },
         }
       );
+
       const data = await res.json();
 
       if (data.token) {
-        SecureStore.setItemAsync("user", JSON.stringify(data.user));
-        SecureStore.setItemAsync("token", data.token);
-        setIsLoggedIn(true);
-
-        SecureStore.setItemAsync("ballotId", data.ballotId);
+        await SecureStore.setItemAsync("user", JSON.stringify(data.user));
+        await SecureStore.setItemAsync("token", data.token);
 
         setEmail(data.user.email);
         setToken(data.token);
-
         return "success";
       } else {
-        console.log("error");
+        setErrorMessage("Invalid email or password. Please try again.");
+        setVisible(true);
+        console.log("Login failed:", data);
         return "error";
       }
     } catch (error) {
-      console.log("Server Offline");
+      console.error("Network or server error:", error);
+      setErrorMessage("Network or server error. Please try again later.");
+      setVisible(true);
+
       return "error";
     } finally {
       setIsLoading(false);
     }
   }
+
+  function convertToFormData(data) {
+    const formData = new FormData();
+
+    const appendToFormData = (obj, prefix = "") => {
+      Object.entries(obj).forEach(([key, value]) => {
+        const formKey = prefix ? `${prefix}[${key}]` : key;
+
+        if (
+          typeof value === "object" &&
+          !Array.isArray(value) &&
+          value !== null
+        ) {
+          appendToFormData(value, formKey);
+        } else if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            appendToFormData(item, `${formKey}[${index}]`);
+          });
+        } else {
+          formData.append(formKey, value);
+        }
+      });
+    };
+
+    appendToFormData(data);
+    return formData;
+  }
+
   const value = {
     messages,
     setMessages,
@@ -158,7 +191,15 @@ https://wevotepushapi-0e45561659e2.herokuapp.com
     createUser,
     destroySession,
     setConfirmPassword,
-  }; // Your actual context values
+    convertToFormData,
+    destroySession,
+    show,
+    setShow,
+    errorMessage,
+    setErrorMessage,
+    visible,
+    setVisible,
+  };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

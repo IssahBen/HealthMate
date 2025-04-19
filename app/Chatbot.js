@@ -20,15 +20,23 @@ export default function ChatBot() {
     setEmail,
     setFullName,
     isLoggedIn,
+    setPassword,
+    destroySession,
   } = useData();
   const navigation = useNavigation();
   const scrollViewRef = useRef(null);
-  const onPress = () => {
-    setIsQuitting(true);
-    setIsLoggedIn(false);
-    setEmail("");
-    setFullName("");
-    navigation.navigate("Home");
+  const onPress = async () => {
+    const result = await destroySession();
+    if (result === "success") {
+      setIsQuitting(true);
+      setIsLoggedIn(false);
+      setEmail("");
+      setFullName("");
+      setPassword("");
+      navigation.navigate("Home");
+    } else {
+      console.log("Logout failed");
+    }
   };
   const handleSend = (message) => {
     const userMessage = {
