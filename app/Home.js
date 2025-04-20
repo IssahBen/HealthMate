@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import ErrorMessage from "./context/ErrorMessage";
 export default function Home() {
   const navigation = useNavigation();
   const handleLogin = () => {
@@ -25,8 +25,9 @@ export default function Home() {
         resizeMode="cover"
         className="flex-1"
       >
-        <View className="flex-1 bg-black/60 px-6 justify-between">
+        <View className="flex-1 relative bg-black/60 px-6 justify-between">
           {/* Header */}
+          <ErrorMessage />
           <View className="mt-12 flex-row items-center">
             <View className="h-12 w-12 bg-cyan-500 rounded-full items-center justify-center">
               <Text className="text-white text-lg font-bold">i</Text>

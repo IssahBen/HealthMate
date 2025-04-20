@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
-
+import * as Notifications from "expo-notifications";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
@@ -38,6 +38,13 @@ export function DataProvider({ children }) {
         setFullName(userObj.first_name);
       }
     }
+    const setupNotifications = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== "granted") {
+        alert("Enable notifications to receive reminders");
+      }
+    };
+    setupNotifications();
     Setter();
   }, []);
 

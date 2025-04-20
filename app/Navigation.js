@@ -8,11 +8,15 @@ import ChatBot from "./Chatbot";
 import Home from "./Home";
 import NutrientDatabase from "./NutrientDatabase";
 import { useNavigation } from "@react-navigation/native";
+import MyRemindersScreen from "./ReminderScreen";
+import ReminderForm from "./ReminderForm";
+import EditReminder from "./EditReminder";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function Tabs() {
   const { isLoggedIn } = useData();
   const navigation = useNavigation();
+  const { setErrorMessage, setVisible } = useData();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -36,6 +40,8 @@ export default function Tabs() {
             e.preventDefault();
             if (isLoggedIn) {
               navigation.navigate("Bot");
+            } else {
+              navigation.navigate("Home");
             }
           },
         })}
@@ -54,6 +60,10 @@ export default function Tabs() {
             e.preventDefault();
             if (!isLoggedIn) {
               navigation.navigate("Home");
+              setErrorMessage("Please log in to access the Bot.");
+              setVisible(true);
+            } else {
+              navigation.navigate("Bot");
             }
           },
         })}
@@ -64,7 +74,17 @@ export default function Tabs() {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="search" size={24} color={color} />
+            <Ionicons name="nutrition" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Reminders"
+        component={ReminderStack}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="alarm" size={24} color={color} />
           ),
         }}
       />
@@ -74,9 +94,9 @@ export default function Tabs() {
 
 function EntryStack() {
   return (
-    <Stack.Navigator initialRouteName="main">
+    <Stack.Navigator initialRouteName="Main">
       <Stack.Screen
-        name="main"
+        name="Main"
         component={Home}
         options={{ headerShown: false }}
       />
@@ -88,7 +108,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "white", // makes the back arrow white
+          headerTintColor: "black", // makes the back arrow white
           headerStyle: {
             backgroundColor: "transparent",
           },
@@ -103,7 +123,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "white", // back arrow color
+          headerTintColor: "black", // back arrow color
           headerStyle: {
             backgroundColor: "transparent",
           },
@@ -126,6 +146,25 @@ function BotStack() {
         component={Login}
         options={{ headerShown: false }}
       />
+    </Stack.Navigator>
+  );
+}
+
+function ReminderStack() {
+  return (
+    <Stack.Navigator initialRouteName="ReminderScreen">
+      <Stack.Screen
+        name="ReminderScreen"
+        component={MyRemindersScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ReminderForm"
+        component={ReminderForm}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen name="EditReminder" component={EditReminder} />
     </Stack.Navigator>
   );
 }
