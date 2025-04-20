@@ -6,6 +6,7 @@ import { useData } from "./context/DataContext";
 import { Ionicons } from "@expo/vector-icons";
 import ChatBot from "./Chatbot";
 import Home from "./Home";
+import NutrientDatabase from "./NutrientDatabase";
 import { useNavigation } from "@react-navigation/native";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ export default function Tabs() {
         name="Home"
         component={EntryStack}
         options={{
+          tabBarLabel: "",
           tabBarIcon: ({ color }) => (
             <Ionicons name="log-in-outline" size={24} color={color} />
           ),
@@ -55,6 +57,16 @@ export default function Tabs() {
             }
           },
         })}
+      />
+      <Tab.Screen
+        name="NutrientDatabase"
+        component={NutrientDatabase}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="search" size={24} color={color} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
