@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import MyRemindersScreen from "./ReminderScreen";
 import ReminderForm from "./ReminderForm";
 import EditReminder from "./EditReminder";
+import SettingsScreen from "./Settings";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function Tabs() {
@@ -87,6 +88,28 @@ export default function Tabs() {
             <Ionicons name="alarm" size={24} color={color} />
           ),
         }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsStack}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings" size={24} color={color} />
+          ),
+        }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            if (!isLoggedIn) {
+              navigation.navigate("Home");
+              setErrorMessage("Please log in to access.");
+              setVisible(true);
+            } else {
+              navigation.navigate("Bot");
+            }
+          },
+        })}
       />
     </Tab.Navigator>
   );
@@ -165,6 +188,18 @@ function ReminderStack() {
       />
 
       <Stack.Screen name="EditReminder" component={EditReminder} />
+    </Stack.Navigator>
+  );
+}
+
+function SettingsStack() {
+  return (
+    <Stack.Navigator initialRouteName="Details">
+      <Stack.Screen
+        name="Details"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

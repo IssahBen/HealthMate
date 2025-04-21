@@ -14,6 +14,8 @@ import {
 import { useData } from "./context/DataContext";
 import { useNavigation } from "@react-navigation/native";
 import ErrorMessage from "./context/ErrorMessage";
+import { authenticateWithBiometrics } from "./useBiometrics";
+import { User } from "lucide-react-native";
 
 export default function Login({ onLogin }) {
   const {
@@ -29,6 +31,7 @@ export default function Login({ onLogin }) {
     convertToFormData,
     errormessage,
     setErrorMessage,
+    setVisible,
   } = useData();
   const navigation = useNavigation();
 
@@ -48,6 +51,14 @@ export default function Login({ onLogin }) {
     }
   };
 
+  // const handleBiometricLogin = async () => {
+  // const result = await authenticateWithBiometrics();
+  // if (result.success && email != "" && password != "") {
+  // handleLogin();
+  // } else {
+  // setErrorMessage("Email and password are required for biometric login.");
+  // }
+  // };
   const handleSignup = () => {
     navigation.navigate("Signup");
   };
