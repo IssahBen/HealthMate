@@ -24,7 +24,11 @@ export function DataProvider({ children }) {
   const [show, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const [bio, setBio] = useState("");
+  const [number, setNumber] = useState("");
+  const [info, setInfo] = useState("");
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [infoShow, setInfoShow] = useState(false);
   useEffect(() => {
     async function Setter() {
       const token = await SecureStore.getItemAsync("token");
@@ -153,6 +157,75 @@ export function DataProvider({ children }) {
     }
   }
 
+  async function ProfileUpdate(obj) {
+    console.log("Profile update initiated", obj);
+    try {
+      const res = await fetch(
+        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/update_profile",
+        {
+          method: "POST",
+          body: JSON.stringify(obj),
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Token": token,
+            "X-User-Email": email,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.user) {
+        const userObj = JSON.parse(data.user);
+        await SecureStore.setItemAsync("user", JSON.stringify(userObj));
+        setEmail(userObj.email);
+        setFullName(userObj.fullName);
+        setBio(userObj.bio);
+        setNumber(userObj.number);
+        return "success";
+      } else {
+        setErrorMessage(data.errors.join("||"));
+        setVisible(true);
+        console.log("error");
+        return "error";
+      }
+    } catch (error) {
+      setErrorMessage("Network or server error. Please try again later.");
+      setVisible(true);
+      console.log("There was an error.", error);
+      return "error";
+    }
+  }
+  async function PasswordUpdate(obj) {
+    console.log("Profile update initiated", obj);
+    try {
+      const res = await fetch(
+        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/update_password",
+        {
+          method: "POST",
+          body: JSON.stringify(obj),
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Token": token,
+            "X-User-Email": email,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.message) {
+        return "success";
+      } else {
+        setErrorMessage(data.errors.join("||"));
+        setVisible(true);
+        console.log("error");
+        return "error";
+      }
+    } catch (error) {
+      setErrorMessage("Network or server error. Please try again later.");
+      setVisible(true);
+      console.log("There was an error.", error);
+      return "error";
+    }
+  }
+
   function convertToFormData(data) {
     const formData = new FormData();
 
@@ -208,6 +281,18 @@ export function DataProvider({ children }) {
     setErrorMessage,
     visible,
     setVisible,
+    bio,
+    setBio,
+    number,
+    setNumber,
+    ProfileUpdate,
+    info,
+    setInfoVisible,
+    infoVisible,
+    setInfo,
+    infoShow,
+    setInfoShow,
+    PasswordUpdate,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

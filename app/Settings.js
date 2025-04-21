@@ -92,17 +92,17 @@ export default function SettingsScreen() {
           <SettingItem
             icon={<User size={20} color="#0ea5e9" />}
             title="Profile Settings"
-            onPress={() => navigation.navigate("profile")}
+            onPress={() => navigation.navigate("Profile")}
           />
           <SettingItem
             icon={<Settings size={20} color="#0ea5e9" />}
             title="Account Settings"
-            onPress={() => navigation.navigate("account")}
+            onPress={() => navigation.navigate("Account")}
           />
           <SettingItem
             icon={<CreditCard size={20} color="#0ea5e9" />}
             title="Purchases"
-            onPress={() => navigation.navigate("purchases")}
+            onPress={() => navigation.navigate("Purchases")}
           />
         </SettingSection>
 

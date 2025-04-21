@@ -12,6 +12,10 @@ import MyRemindersScreen from "./ReminderScreen";
 import ReminderForm from "./ReminderForm";
 import EditReminder from "./EditReminder";
 import SettingsScreen from "./Settings";
+import AccountSettings from "./Account";
+import ProfileSettings from "./Profile";
+import PurchasesScreen from "./Purchases";
+import ChangePasswordScreen from "./UpdatePassword";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function Tabs() {
@@ -98,18 +102,18 @@ export default function Tabs() {
             <Ionicons name="settings" size={24} color={color} />
           ),
         }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Please log in to access.");
-              setVisible(true);
-            } else {
-              navigation.navigate("Bot");
-            }
-          },
-        })}
+        // listeners={({ navigation }) => ({
+        // tabPress: (e) => {
+        // e.preventDefault();
+        // if (!isLoggedIn) {
+        // navigation.navigate("Home");
+        // setErrorMessage("Please log in to access.");
+        // setVisible(true);
+        // } else {
+        // navigation.navigate("Bot");
+        // }
+        // },
+        // })}
       />
     </Tab.Navigator>
   );
@@ -198,6 +202,26 @@ function SettingsStack() {
       <Stack.Screen
         name="Details"
         component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Account"
+        component={AccountSettings}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileSettings}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Purchases"
+        component={PurchasesScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

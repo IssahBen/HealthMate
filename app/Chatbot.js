@@ -68,14 +68,7 @@ export default function ChatBot() {
         className="flex-1 bg-gray-50"
       >
         <SafeAreaView className="flex-1 justify-between bg-slate-100 gap-10  relative ">
-          <View className="items-center justify-center mt-2 relative  shadow-sm z-10">
-            <TouchableOpacity
-              onPress={onPress}
-              className="flex-row items-center   gap-2 bg-red-500  left-5 top-5 absolute px-2 rounded-xl shadow-md"
-            >
-              <Ionicons name="log-out-outline" size={15} color="white" />
-            </TouchableOpacity>
-          </View>
+          <View className="items-center justify-center mt-2 relative  shadow-sm z-10"></View>
           <View className="flex-1 px-4 pt-3 bg-slate-100 ">
             <ScrollView
               ref={scrollViewRef}
