@@ -1,5 +1,12 @@
 import React from "react"; // Must be at the top
-import { View, Text, ScrollView, TouchableOpacity, Switch } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Switch,
+  Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -17,7 +24,7 @@ import { useData } from "./context/DataContext";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+
   const [notifications, setNotifications] = React.useState(true);
   const {
     setIsQuitting,
@@ -26,11 +33,12 @@ export default function SettingsScreen() {
     setFullName,
     setPassword,
     destroySession,
+    theme,
+    toggleTheme,
   } = useData();
   const onPress = async () => {
     const result = await destroySession();
     if (result === "success") {
-      setIsQuitting(true);
       setIsLoggedIn(false);
       setEmail("");
       setFullName("");
@@ -106,28 +114,19 @@ export default function SettingsScreen() {
           />
         </SettingSection>
 
-        <SettingSection title="PREFERENCES">
-          <SettingItem
-            icon={<Bell size={20} color="#0ea5e9" />}
-            title="Notifications"
-            value={notifications}
-            isSwitch={true}
-            onPress={() => setNotifications(!notifications)}
-          />
-          <SettingItem
-            icon={<Moon size={20} color="#0ea5e9" />}
-            title="Dark Mode"
-            value={isDarkMode}
-            isSwitch={true}
-            onPress={() => setIsDarkMode(!isDarkMode)}
-          />
-        </SettingSection>
+        <SettingItem
+          icon={<Moon size={20} color="#0ea5e9" />}
+          title="Dark Mode"
+          value={theme}
+          isSwitch={true}
+          onPress={toggleTheme}
+        />
 
         <SettingSection title="SECURITY">
           <SettingItem
             icon={<Shield size={20} color="#0ea5e9" />}
             title="Privacy Settings"
-            onPress={() => {}}
+            onPress={() => navigation.navigate("Privacy")}
           />
         </SettingSection>
 
@@ -135,7 +134,7 @@ export default function SettingsScreen() {
           <SettingItem
             icon={<HelpCircle size={20} color="#0ea5e9" />}
             title="Help & Support"
-            onPress={() => {}}
+            onPress={() => Alert.alert("Help & Support coming soon!")}
           />
         </SettingSection>
 

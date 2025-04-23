@@ -29,6 +29,9 @@ export function DataProvider({ children }) {
   const [info, setInfo] = useState("");
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoShow, setInfoShow] = useState(false);
+  const [theme, setTheme] = useState("light");
+  const [destroyAccount, setDestroyAccount] = useState(false);
+  const [balance, setBalance] = useState("100");
   useEffect(() => {
     async function Setter() {
       const token = await SecureStore.getItemAsync("token");
@@ -48,16 +51,29 @@ export function DataProvider({ children }) {
         alert("Enable notifications to receive reminders");
       }
     };
+    (async () => {
+      const storedTheme = await SecureStore.getItemAsync("appTheme");
+      if (storedTheme) {
+        setTheme(storedTheme);
+      } else {
+        const colorScheme = Appearance.getColorScheme();
+        setTheme(colorScheme || "light");
+      }
+    })();
     setupNotifications();
     Setter();
   }, []);
-
+  const toggleTheme = async () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    await SecureStore.setItemAsync("appTheme", newTheme);
+  };
   async function createUser(obj) {
     try {
       setIsLoading(true);
 
       const res = await fetch(
-        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/register",
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/register",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -70,9 +86,11 @@ export function DataProvider({ children }) {
         await SecureStore.setItemAsync("user", JSON.stringify(data.user));
         await SecureStore.setItemAsync("token", data.token);
         setIsLoggedIn(true);
-        setFullName(data.user.first_name);
+        setFullName(data.user.username);
         setEmail(data.user.email);
         setToken(data.token);
+        setBio(data.user.bio);
+        setNumber(data.user.number);
         return "success";
       } else {
         setErrorMessage(data.errors.join("||"));
@@ -93,7 +111,7 @@ export function DataProvider({ children }) {
   async function destroySession() {
     try {
       const res = await fetch(
-        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/logout",
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/logout",
         {
           method: "DELETE",
           headers: {
@@ -120,10 +138,41 @@ export function DataProvider({ children }) {
     }
   }
 
+  async function destroyUser() {
+    try {
+      const res = await fetch(
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/destroy_account",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Token": token,
+            "X-User-Email": email,
+          },
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        return "error";
+      }
+      if (data.message) {
+        setIsLoggedIn(false);
+        await SecureStore.setItemAsync("token", "");
+        setToken("");
+        setEmail("");
+        setBalance("0");
+        setFullName("");
+        return "success";
+      }
+    } catch (error) {
+      console.log("There was an error.", error);
+      return "error";
+    }
+  }
   async function Login(obj) {
     try {
       const res = await fetch(
-        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/login",
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/login",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -139,6 +188,10 @@ export function DataProvider({ children }) {
 
         setEmail(data.user.email);
         setToken(data.token);
+        setFullName(data.user.username);
+        setBio(data.user.bio);
+        setNumber(data.user.number);
+        setBalance(data.user.balance);
         return "success";
       } else {
         setErrorMessage("Invalid email or password. Please try again.");
@@ -161,7 +214,7 @@ export function DataProvider({ children }) {
     console.log("Profile update initiated", obj);
     try {
       const res = await fetch(
-        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/update_profile",
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/update_profile",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -174,7 +227,7 @@ export function DataProvider({ children }) {
       );
       const data = await res.json();
       if (data.user) {
-        const userObj = JSON.parse(data.user);
+        const userObj = data.user;
         await SecureStore.setItemAsync("user", JSON.stringify(userObj));
         setEmail(userObj.email);
         setFullName(userObj.fullName);
@@ -195,10 +248,10 @@ export function DataProvider({ children }) {
     }
   }
   async function PasswordUpdate(obj) {
-    console.log("Profile update initiated", obj);
+    console.log("Password update initiated", obj);
     try {
       const res = await fetch(
-        "https://1e81-99-230-98-234.ngrok-free.app/api/v1/update_password",
+        "https://7132-99-230-98-234.ngrok-free.app/api/v1/update_password",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -293,6 +346,13 @@ export function DataProvider({ children }) {
     infoShow,
     setInfoShow,
     PasswordUpdate,
+    theme,
+    toggleTheme,
+    destroyAccount,
+    setDestroyAccount,
+    destroyUser,
+    balance,
+    setBalance,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Purchase from "./components/TokenDisplay/Purchase";
 // Assuming you have a global CSS file for Tailwind CSS
 export default function ChatBot() {
   const {
@@ -60,15 +61,16 @@ export default function ChatBot() {
   };
 
   return (
-    <DataProvider>
+    <>
       <StatusBar style="dark" />
-
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1 bg-gray-50"
       >
         <SafeAreaView className="flex-1 justify-between bg-slate-100 gap-10  relative ">
-          <View className="items-center justify-center mt-2 relative  shadow-sm z-10"></View>
+          <View className="items-center justify-center mt-2 relative  shadow-sm z-10">
+            <Purchase />
+          </View>
           <View className="flex-1 px-4 pt-3 bg-slate-100 ">
             <ScrollView
               ref={scrollViewRef}
@@ -92,11 +94,11 @@ export default function ChatBot() {
             </ScrollView>
           </View>
 
-          <View className="border-t border-gray-200 bg-white  shadow-sm px-4 pt-2 ">
+          <View className="border-t border-gray-200 bg-white  shadow-sm px-4 pt-2 mt-10 ">
             <ChatInput onSend={handleSend} />
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
-    </DataProvider>
+    </>
   );
 }

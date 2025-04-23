@@ -16,6 +16,8 @@ import AccountSettings from "./Account";
 import ProfileSettings from "./Profile";
 import PurchasesScreen from "./Purchases";
 import ChangePasswordScreen from "./UpdatePassword";
+import PrivacySettings from "./PrivacyPage";
+import Goal from "./Goal";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function Tabs() {
@@ -65,7 +67,7 @@ export default function Tabs() {
             e.preventDefault();
             if (!isLoggedIn) {
               navigation.navigate("Home");
-              setErrorMessage("Please log in to access the Bot.");
+              setErrorMessage("Sign in .");
               setVisible(true);
             } else {
               navigation.navigate("Bot");
@@ -82,6 +84,18 @@ export default function Tabs() {
             <Ionicons name="nutrition" size={24} color={color} />
           ),
         }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            if (!isLoggedIn) {
+              navigation.navigate("Home");
+              setErrorMessage("Sign in ");
+              setVisible(true);
+            } else {
+              navigation.navigate("NutrientDatabase");
+            }
+          },
+        })}
       />
       <Tab.Screen
         name="Reminders"
@@ -92,6 +106,40 @@ export default function Tabs() {
             <Ionicons name="alarm" size={24} color={color} />
           ),
         }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            if (!isLoggedIn) {
+              navigation.navigate("Home");
+              setErrorMessage("Sign in ");
+              setVisible(true);
+            } else {
+              navigation.navigate("Reminders");
+            }
+          },
+        })}
+      />
+      <Tab.Screen
+        name="Goal"
+        component={Goal}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="trophy-outline" size={24} color={color} />
+          ),
+        }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            if (!isLoggedIn) {
+              navigation.navigate("Home");
+              setErrorMessage("Sign in");
+              setVisible(true);
+            } else {
+              navigation.navigate("Goal");
+            }
+          },
+        })}
       />
       <Tab.Screen
         name="Settings"
@@ -102,18 +150,18 @@ export default function Tabs() {
             <Ionicons name="settings" size={24} color={color} />
           ),
         }}
-        // listeners={({ navigation }) => ({
-        // tabPress: (e) => {
-        // e.preventDefault();
-        // if (!isLoggedIn) {
-        // navigation.navigate("Home");
-        // setErrorMessage("Please log in to access.");
-        // setVisible(true);
-        // } else {
-        // navigation.navigate("Bot");
-        // }
-        // },
-        // })}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            if (!isLoggedIn) {
+              navigation.navigate("Home");
+              setErrorMessage("Sign in");
+              setVisible(true);
+            } else {
+              navigation.navigate("Settings");
+            }
+          },
+        })}
       />
     </Tab.Navigator>
   );
@@ -135,7 +183,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "black", // makes the back arrow white
+          headerTintColor: "white", // makes the back arrow white
           headerStyle: {
             backgroundColor: "transparent",
           },
@@ -150,7 +198,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "black", // back arrow color
+          headerTintColor: "white", // back arrow color
           headerStyle: {
             backgroundColor: "transparent",
           },
@@ -222,6 +270,16 @@ function SettingsStack() {
       <Stack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Privacy"
+        component={PrivacySettings}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={Home}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

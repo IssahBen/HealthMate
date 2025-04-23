@@ -17,7 +17,7 @@ export default function ChatInput({ onSend }) {
   return (
     <Animated.View
       entering={FadeIn}
-      className="p-4 border-t border-gray-200 bg-white"
+      className="p-4 border-t border-gray-200 bg-white "
     >
       <View className="flex-row items-end">
         <TextInput

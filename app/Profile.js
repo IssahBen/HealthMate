@@ -19,22 +19,30 @@ export default function ProfileSettings() {
     email,
     setEmail,
     number,
-    SetNumber,
+    setNumber,
     bio,
     setBio,
     ProfileUpdate,
     setErrorMessage,
     setVisible,
+    password,
   } = useData();
 
   const handleUpdate = async () => {
-    if (email === "" || fullName === "" || number === "" || bio === "") {
+    if (email === "" || fullName === "") {
       setErrorMessage("All fields are required");
       setVisible(true);
       return;
     }
     const formprops = {
-      user: { email: email, userName: fullName, bio: bio, number: number },
+      user: {
+        email: email,
+        username: fullName,
+        bio: bio,
+        number: number,
+        password: password,
+        password_confirmation: password,
+      },
     };
 
     const result = await ProfileUpdate(formprops);
@@ -118,7 +126,7 @@ export default function ProfileSettings() {
               className="px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900"
               placeholder="Enter your phone number"
               value={number}
-              onChangeText={SetNumber}
+              onChangeText={setNumber}
               keyboardType="phone-pad"
               style={{ fontFamily: "Inter-Regular" }}
             />

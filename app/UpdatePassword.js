@@ -53,7 +53,7 @@ export default function ChangePasswordScreen() {
           email: email,
           currentPassword: currentPassword,
           newPassword: newPassword,
-          confirmPassword: confirmPassword,
+          password_confirmation: confirmPassword,
         },
       };
       const result = await PasswordUpdate(formData);

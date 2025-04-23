@@ -30,9 +30,9 @@ export default function Home() {
           <ErrorMessage />
           <View className="mt-12 flex-row items-center">
             <View className="h-12 w-12 bg-cyan-500 rounded-full items-center justify-center">
-              <Text className="text-white text-lg font-bold">i</Text>
+              <Text className="text-white text-lg font-bold">P</Text>
             </View>
-            <Text className="ml-3 text-3xl font-bold text-white">iCARE</Text>
+            <Text className="ml-3 text-3xl font-bold text-white">PUSH</Text>
           </View>
 
           {/* Content */}
@@ -70,7 +70,7 @@ export default function Home() {
           {/* Footer */}
           <View className="mb-6 items-center">
             <Text className="text-gray-200 text-sm">
-              © 2025 HealthAI. All rights reserved.
+              © 2025 pUSH. All rights reserved.
             </Text>
           </View>
         </View>

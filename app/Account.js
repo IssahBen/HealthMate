@@ -5,16 +5,41 @@ import { ArrowLeft, Lock, Mail, Bell, Globe } from "lucide-react-native";
 import { useState } from "react";
 import InfoMessage from "./context/InfoMessage";
 import { useData } from "./context/DataContext";
+import { clearAllReminders } from "./components/ReminderManager";
 export default function AccountSettings() {
   const navigation = useNavigation();
 
   const [pushNotifications, setPushNotifications] = useState(true);
-  const { setInfo, setInfoVisible } = useData();
+  const {
+    setInfo,
+    setInfoVisible,
+    destroyAccount,
+    setDestroyAccount,
+    setIsLoading,
+    setIsLoggedIn,
+    deleteAllGoals,
+    destroyUser,
+  } = useData();
   //   const handleInfo = () => {
   // console.log("Feature coming soon");
   // setInfo("Feature coming soon");
   // setInfoVisible(true);
   //   };
+  const handleDestroy = async () => {
+    setIsLoading(true);
+    setDestroyAccount(true);
+    await clearAllReminders();
+    const result = await destroyUser();
+
+    if (result === "success") {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      navigation.navigate("Home");
+    } else {
+      setIsLoading(false);
+      console.log("destroy failed");
+    }
+  };
   const SettingItem = ({
     icon,
     title,
@@ -110,24 +135,9 @@ export default function AccountSettings() {
           />
         </View>
 
-        <View className="py-4">
-          <Text
-            className="px-4 pb-2 text-sm text-gray-500"
-            style={{ fontFamily: "Inter-Medium" }}
-          >
-            PREFERENCES
-          </Text>
-          <SettingItem
-            icon={<Globe size={20} color="#0ea5e9" />}
-            title="Language"
-            description="English (US)"
-            onPress={() => {}}
-          />
-        </View>
-
         <TouchableOpacity
           className="mx-4 mt-6 mb-8 py-3 bg-red-500 rounded-lg"
-          onPress={() => {}}
+          onPress={handleDestroy}
         >
           <Text
             className="text-center text-white font-medium"

@@ -26,3 +26,12 @@ export const updateReminder = async (id, updatedData) => {
   );
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 };
+
+export const clearAllReminders = async () => {
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+    return "success";
+  } catch (error) {
+    console.error("Failed to clear reminders:", error);
+  }
+};
