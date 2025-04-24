@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { useGoal } from "../context/GoalContext";
+import { useGoal } from "../../context/GoalContext";
 import GoalItem from "./GoalItem";
 import { Clock } from "lucide-react-native";
 

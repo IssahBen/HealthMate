@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { useGoal } from "../context/GoalContext";
+import { useGoal } from "../../context/GoalContext";
 
 const BoxGrid = ({ goalId, progress, hoursPerDay }) => {
   const { updateGoalProgress } = useGoal();

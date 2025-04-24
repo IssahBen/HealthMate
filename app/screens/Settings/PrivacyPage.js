@@ -3,10 +3,8 @@ import { View, Text, Switch, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const PrivacySettings = () => {
-  const [locationAccess, setLocationAccess] = useState(true);
   const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
   const [personalizedAds, setPersonalizedAds] = useState(false);
-  const [notifications, setNotifications] = useState(true);
 
   return (
     <SafeAreaView className="flex-1 bg-white">

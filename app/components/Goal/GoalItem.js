@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { View, Text, Pressable, Alert } from "react-native";
 import { Trash2, RefreshCw } from "lucide-react-native";
@@ -7,6 +8,7 @@ import { calculateProgress, formatDate } from "../context/generatedId";
 
 const GoalItem = ({ goal, isActive, onSelect, onReset, onDelete }) => {
   const { id, title, totalHours, hoursPerDay, progress, createdAt } = goal;
+  // eslint-disable-next-line no-unused-vars
   const percentage = calculateProgress(progress);
   const completedHours = progress.filter((p) => p).length;
 

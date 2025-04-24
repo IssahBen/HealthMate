@@ -1,7 +1,10 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import * as Notifications from "expo-notifications";
+import React from "react";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
@@ -141,7 +144,7 @@ export function DataProvider({ children }) {
   async function destroyUser() {
     try {
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/destroy_account",
+        "https://c009-99-230-98-234.ngrok-free.app/api/v1/destroy_account",
         {
           method: "DELETE",
           headers: {
@@ -172,7 +175,7 @@ export function DataProvider({ children }) {
   async function Login(obj) {
     try {
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/login",
+        "https://c009-99-230-98-234.ngrok-free.app/api/v1/login",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -214,7 +217,7 @@ export function DataProvider({ children }) {
     console.log("Profile update initiated", obj);
     try {
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/update_profile",
+        "https://c009-99-230-98-234.ngrok-free.app/api/v1/update_profile",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -251,7 +254,7 @@ export function DataProvider({ children }) {
     console.log("Password update initiated", obj);
     try {
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/update_password",
+        "https://c009-99-230-98-234.ngrok-free.app/api/v1/update_password",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -278,7 +281,36 @@ export function DataProvider({ children }) {
       return "error";
     }
   }
-
+  async function TopUp(obj) {
+    try {
+      const res = await fetch(
+        "https://c009-99-230-98-234.ngrok-free.app/api/v1/top",
+        {
+          method: "POST",
+          body: JSON.stringify(obj),
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Token": token,
+            "X-User-Email": email,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.message) {
+        return "success";
+      } else {
+        setErrorMessage(data.errors.join("||"));
+        setVisible(true);
+        console.log("error");
+        return "error";
+      }
+    } catch (error) {
+      setErrorMessage("Network or server error. Please try again later.");
+      setVisible(true);
+      console.log("There was an error.", error);
+      return "error";
+    }
+  }
   function convertToFormData(data) {
     const formData = new FormData();
 
@@ -327,7 +359,6 @@ export function DataProvider({ children }) {
     destroySession,
     setConfirmPassword,
     convertToFormData,
-    destroySession,
     show,
     setShow,
     errorMessage,
@@ -353,6 +384,7 @@ export function DataProvider({ children }) {
     destroyUser,
     balance,
     setBalance,
+    TopUp,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

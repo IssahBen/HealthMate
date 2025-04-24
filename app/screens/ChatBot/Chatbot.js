@@ -1,44 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { ScrollView, Platform, KeyboardAvoidingView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
-import { DataProvider, useData } from "./context/DataContext";
+import { useData } from "./context/DataContext";
 import { StatusBar } from "expo-status-bar";
-import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Purchase from "./components/TokenDisplay/Purchase";
+import { StripeProvider } from "@stripe/stripe-react-native";
+import { Publisher_Key } from "@env";
 // Assuming you have a global CSS file for Tailwind CSS
 export default function ChatBot() {
-  const {
-    messages,
-    setMessages,
-    isQuitting,
-    setIsQuitting,
-    setIsLoggedIn,
-    setEmail,
-    setFullName,
-    isLoggedIn,
-    setPassword,
-    destroySession,
-  } = useData();
-  const navigation = useNavigation();
+  const { messages, setMessages } = useData();
   const scrollViewRef = useRef(null);
-  const onPress = async () => {
-    const result = await destroySession();
-    if (result === "success") {
-      setIsQuitting(true);
-      setIsLoggedIn(false);
-      setEmail("");
-      setFullName("");
-      setPassword("");
-      navigation.navigate("Home");
-    } else {
-      console.log("Logout failed");
-    }
-  };
   const handleSend = (message) => {
     const userMessage = {
       id: Date.now().toString(),
@@ -61,7 +34,7 @@ export default function ChatBot() {
   };
 
   return (
-    <>
+    <StripeProvider publishableKey={Publisher_Key}>
       <StatusBar style="dark" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -99,6 +72,6 @@ export default function ChatBot() {
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
-    </>
+    </StripeProvider>
   );
 }

@@ -2,26 +2,28 @@ import Login from "./Login";
 import Signup from "./SignUp";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useData } from "./context/DataContext";
+import { useData } from "../context/DataContext";
 import { Ionicons } from "@expo/vector-icons";
 import ChatBot from "./Chatbot";
 import Home from "./Home";
 import NutrientDatabase from "./NutrientDatabase";
 import { useNavigation } from "@react-navigation/native";
 import MyRemindersScreen from "./ReminderScreen";
-import ReminderForm from "./ReminderForm";
-import EditReminder from "./EditReminder";
-import SettingsScreen from "./Settings";
-import AccountSettings from "./Account";
-import ProfileSettings from "./Profile";
-import PurchasesScreen from "./Purchases";
-import ChangePasswordScreen from "./UpdatePassword";
-import PrivacySettings from "./PrivacyPage";
-import Goal from "./Goal";
+import ReminderForm from "../screens/Reminder/ReminderForm";
+import EditReminder from "../screens/Reminder/EditReminder";
+import SettingsScreen from "../screens/Settings/Settings";
+import AccountSettings from "../screens/Settings/Account";
+import ProfileSettings from "../screens/Settings/Profile";
+import PurchasesScreen from "../screens/Settings/Purchases";
+import ChangePasswordScreen from "../screens/Settings/UpdatePassword";
+import PrivacySettings from "../screens/Settings/PrivacyPage";
+import React from "react";
+import Goal from "../screens/Goal/Goal";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function Tabs() {
   const { isLoggedIn } = useData();
+  // eslint-disable-next-line no-unused-vars
   const navigation = useNavigation();
   const { setErrorMessage, setVisible } = useData();
   return (

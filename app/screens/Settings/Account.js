@@ -1,25 +1,18 @@
+/* eslint-disable react/prop-types */
 import { View, Text, ScrollView, TouchableOpacity, Switch } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeft, Lock, Mail, Bell, Globe } from "lucide-react-native";
+import { ArrowLeft, Lock, Bell } from "lucide-react-native";
 import { useState } from "react";
-import InfoMessage from "./context/InfoMessage";
 import { useData } from "./context/DataContext";
 import { clearAllReminders } from "./components/ReminderManager";
+import React from "react";
 export default function AccountSettings() {
   const navigation = useNavigation();
 
   const [pushNotifications, setPushNotifications] = useState(true);
-  const {
-    setInfo,
-    setInfoVisible,
-    destroyAccount,
-    setDestroyAccount,
-    setIsLoading,
-    setIsLoggedIn,
-    deleteAllGoals,
-    destroyUser,
-  } = useData();
+  const { setDestroyAccount, setIsLoading, setIsLoggedIn, destroyUser } =
+    useData();
   //   const handleInfo = () => {
   // console.log("Feature coming soon");
   // setInfo("Feature coming soon");

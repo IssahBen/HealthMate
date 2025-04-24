@@ -2,8 +2,8 @@ import { useState } from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { useData } from "./context/DataContext";
-
+import React from "react";
+// eslint-disable-next-line react/prop-types
 export default function ChatInput({ onSend }) {
   const [message, setMessage] = useState("");
 

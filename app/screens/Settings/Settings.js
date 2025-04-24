@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react"; // Must be at the top
 import {
   View,
@@ -14,20 +15,17 @@ import {
   User,
   Settings,
   CreditCard,
-  Bell,
   Shield,
   Moon,
   CircleHelp as HelpCircle,
-  LogOut,
 } from "lucide-react-native";
 import { useData } from "./context/DataContext";
+import PropTypes from "prop-types";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
 
-  const [notifications, setNotifications] = React.useState(true);
   const {
-    setIsQuitting,
     setIsLoggedIn,
     setEmail,
     setFullName,
@@ -71,6 +69,13 @@ export default function SettingsScreen() {
       )}
     </TouchableOpacity>
   );
+  SettingItem.propTypes = {
+    icon: PropTypes.element.isRequired,
+    title: PropTypes.string.isRequired,
+    onPress: PropTypes.func,
+    value: PropTypes.bool,
+    isSwitch: PropTypes.bool,
+  };
 
   const SettingSection = ({ title, children }) => (
     <View className="mb-6">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { View, Text, Animated } from "react-native";
 import { calculateProgress } from "../context/generatedId";

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { ScrollView, Platform, KeyboardAvoidingView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ChatInput from "./ChatInput";
-import ChatMessage from "./ChatMessage";
+import ChatInput from "./screens/ChatBot/ChatInput";
+import ChatMessage from "./screens/ChatBot/ChatMessage";
 import { DataProvider } from "./context/DataContext";
 import { StatusBar } from "expo-status-bar";
 import "../global.css"; // Assuming you have a global CSS file for Tailwind CSS

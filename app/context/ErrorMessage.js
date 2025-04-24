@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useData } from "./DataContext";
 export default function ErrorMessage({ duration = 3000 }) {

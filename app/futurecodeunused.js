@@ -1,4 +1,5 @@
-<View className="items-center py-6">
+{
+  /* <View className="items-center py-6">
   <View className="relative">
     <Image
       source={{
@@ -20,4 +21,5 @@
   title="Two-Factor Authentication"
   description="Add an extra layer of security"
   onPress={handleInfo}
-/>;
+/>; */
+}

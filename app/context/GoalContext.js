@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { createContext, useContext, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { generateId } from "./generatedId";
@@ -120,19 +121,6 @@ export const GoalProvider = ({ children }) => {
 
     if (activeGoal?.id === goalId) {
       setActiveGoal(remaining.length > 0 ? remaining[0] : null);
-    }
-  };
-  const deleteAllGoals = async () => {
-    console.log("Deleting all goals...");
-    try {
-      await SecureStore.setItemAsync(GOALS_KEY, JSON.stringify([]));
-
-      // Clear from storage
-      setGoals([]); // Clear from state
-      setActiveGoal(null); // Clear active goal
-      return "success";
-    } catch (error) {
-      console.error("Failed to delete all goals:", error);
     }
   };
 

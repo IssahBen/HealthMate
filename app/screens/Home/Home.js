@@ -42,7 +42,7 @@ export default function Home() {
             </Text>
             <Text className="text-white/90 text-lg text-center mb-8">
               Instantly understand your health using cutting-edge AI technology.
-              It's fast, accurate, and always on your side.
+              It&apos;s fast, accurate, and always on your side.
             </Text>
 
             {/* Buttons */}

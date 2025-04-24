@@ -1,22 +1,20 @@
-import { useState } from "react";
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  Animated,
-  Easing,
   ImageBackground,
 } from "react-native";
 import { useData } from "./context/DataContext";
 import { useNavigation } from "@react-navigation/native";
-import ErrorMessage from "./context/ErrorMessage";
-import { User } from "lucide-react-native";
-
+import React from "react";
+// eslint-disable-next-line no-unused-vars
 export default function Login({ onLogin }) {
   const {
-    isLoggedIn,
     setIsLoggedIn,
     email,
     setEmail,
@@ -25,29 +23,14 @@ export default function Login({ onLogin }) {
     isLoading,
     setIsLoading,
     Login,
-    convertToFormData,
-    errormessage,
-    setErrorMessage,
-    setVisible,
   } = useData();
   const navigation = useNavigation();
 
   // Animation for loading spinner
-  const spinValue = new Animated.Value(0);
-  const spin = () => {
-    spinValue.setValue(0);
-    Animated.timing(spinValue, {
-      toValue: 1,
-      duration: 1000,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start();
-  };
 
   const handleLogin = async () => {
     const formprops = { user: { email: email, password: password } };
     setIsLoading(true);
-    const formData = convertToFormData(formprops);
     const result = await Login(formprops);
 
     if (result === "success") {
@@ -65,10 +48,6 @@ export default function Login({ onLogin }) {
   };
 
   // Spin animation for loader
-  const spinInterpolate = spinValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "360deg"],
-  });
 
   return (
     <>
@@ -130,7 +109,7 @@ export default function Login({ onLogin }) {
                 {/* Sign up link */}
                 <TouchableOpacity onPress={handleSignup} className="mt-4">
                   <Text className="text-teal-500 text-center">
-                    Don't have an account? Sign up
+                    Don&apos;t have an account? Sign up
                   </Text>
                 </TouchableOpacity>
               </View>

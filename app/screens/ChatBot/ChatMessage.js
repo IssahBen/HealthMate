@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeInUp } from "react-native-reanimated";
-
+import React from "react";
+// eslint-disable-next-line react/prop-types
 export default function ChatMessage({ message, isBot, timestamp }) {
   return (
     <Animated.View

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   View,
   Text,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { useData } from "./context/DataContext";
+import React from "react";
 export default function ChangePasswordScreen() {
   const navigation = useNavigation();
   const [currentPassword, setCurrentPassword] = useState("");

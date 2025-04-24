@@ -1,21 +1,18 @@
-import { useState } from "react";
+/* eslint-disable no-undef */
+import React from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  Animated,
-  Easing,
   ImageBackground,
 } from "react-native";
 import { useData } from "./context/DataContext";
 import { useNavigation } from "@react-navigation/native";
-import ErrorMessage from "./context/ErrorMessage";
 import { StatusBar } from "react-native"; // Add this import
 export default function Signup() {
   const {
-    isLoggedIn,
     setIsLoggedIn,
     setConfirmPassword,
     confirmPassword,
@@ -28,7 +25,6 @@ export default function Signup() {
     fullName,
     setFullName,
     createUser,
-    convertToFormData,
   } = useData();
   const navigation = useNavigation();
 
@@ -58,21 +54,6 @@ export default function Signup() {
   };
 
   // Animation for loading spinner
-  const spinValue = new Animated.Value(0);
-  const spin = () => {
-    spinValue.setValue(0);
-    Animated.timing(spinValue, {
-      toValue: 1,
-      duration: 1000,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const spinInterpolate = spinValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "360deg"],
-  });
 
   return (
     <>

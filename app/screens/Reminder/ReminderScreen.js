@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Alert, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import * as Notifications from "expo-notifications";
 import { getReminders, deleteReminder } from "./components/ReminderManager";
 import { useNavigation } from "@react-navigation/native";
@@ -67,7 +67,7 @@ const MyRemindersScreen = () => {
         {reminders.length === 0 ? (
           <View className="mt-12 items-center">
             <Text className="text-gray-500 text-base">
-              You haven't added any reminders yet.
+              You haven&apos;t added any reminders yet.
             </Text>
           </View>
         ) : (

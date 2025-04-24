@@ -1,3 +1,5 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useData } from "./DataContext";
