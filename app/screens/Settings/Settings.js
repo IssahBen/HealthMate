@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react"; // Must be at the top
+import React from "react";
 import {
   View,
   Text,
@@ -19,7 +19,7 @@ import {
   Moon,
   CircleHelp as HelpCircle,
 } from "lucide-react-native";
-import { useData } from "./context/DataContext";
+import { useData } from "../../context/DataContext";
 import PropTypes from "prop-types";
 
 export default function SettingsScreen() {
@@ -34,6 +34,7 @@ export default function SettingsScreen() {
     theme,
     toggleTheme,
   } = useData();
+
   const onPress = async () => {
     const result = await destroySession();
     if (result === "success") {
@@ -46,16 +47,14 @@ export default function SettingsScreen() {
       console.log("Logout failed");
     }
   };
+
   const SettingItem = ({ icon, title, onPress, value, isSwitch }) => (
     <TouchableOpacity
-      className="flex-row items-center px-4 py-3 bg-white border-b border-gray-100"
+      className="flex-row items-center px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700"
       onPress={onPress}
     >
       <View className="w-8">{icon}</View>
-      <Text
-        className="flex-1 ml-3 text-base text-gray-800"
-        style={{ fontFamily: "Inter-Regular" }}
-      >
+      <Text className="flex-1 ml-3 text-base font-inter-regular text-gray-800 dark:text-gray-100">
         {title}
       </Text>
       {isSwitch ? (
@@ -65,10 +64,14 @@ export default function SettingsScreen() {
           trackColor={{ false: "#d1d5db", true: "#0ea5e9" }}
         />
       ) : (
-        <ChevronRight size={20} color="#94a3b8" />
+        <ChevronRight
+          size={20}
+          color={theme === "dark" ? "#94a3b8" : "#94a3b8"}
+        />
       )}
     </TouchableOpacity>
   );
+
   SettingItem.propTypes = {
     icon: PropTypes.element.isRequired,
     title: PropTypes.string.isRequired,
@@ -79,10 +82,7 @@ export default function SettingsScreen() {
 
   const SettingSection = ({ title, children }) => (
     <View className="mb-6">
-      <Text
-        className="px-4 py-2 text-sm text-gray-500 bg-gray-50"
-        style={{ fontFamily: "Inter-Medium" }}
-      >
+      <Text className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 font-inter-medium bg-gray-50 dark:bg-gray-950">
         {title}
       </Text>
       {children}
@@ -90,13 +90,10 @@ export default function SettingsScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900">
       <ScrollView>
         <View className="px-4 pt-6 pb-4">
-          <Text
-            className="text-2xl font-bold text-gray-900"
-            style={{ fontFamily: "Inter-Bold" }}
-          >
+          <Text className="text-2xl font-inter-bold text-gray-900 dark:text-white">
             Settings
           </Text>
         </View>
@@ -119,14 +116,6 @@ export default function SettingsScreen() {
           />
         </SettingSection>
 
-        <SettingItem
-          icon={<Moon size={20} color="#0ea5e9" />}
-          title="Dark Mode"
-          value={theme}
-          isSwitch={true}
-          onPress={toggleTheme}
-        />
-
         <SettingSection title="SECURITY">
           <SettingItem
             icon={<Shield size={20} color="#0ea5e9" />}
@@ -147,10 +136,7 @@ export default function SettingsScreen() {
           className="mx-4 mt-6 mb-8 py-3 rounded-lg bg-red-500"
           onPress={onPress}
         >
-          <Text
-            className="text-center text-white font-medium"
-            style={{ fontFamily: "Inter-Medium" }}
-          >
+          <Text className="text-center text-white font-inter-medium dark:text-white">
             Sign Out
           </Text>
         </TouchableOpacity>

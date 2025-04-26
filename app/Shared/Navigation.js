@@ -1,14 +1,14 @@
-import Login from "./Login";
-import Signup from "./SignUp";
+import Login from "../screens/Home/Login";
+import Signup from "../screens/Home/SignUp";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useData } from "../context/DataContext";
 import { Ionicons } from "@expo/vector-icons";
-import ChatBot from "./Chatbot";
-import Home from "./Home";
-import NutrientDatabase from "./NutrientDatabase";
+import ChatBot from "../screens/ChatBot/Chatbot";
+import Home from "../screens/Home/Home";
+import NutrientDatabase from "../screens/NutrientDatabase/NutrientDatabase";
 import { useNavigation } from "@react-navigation/native";
-import MyRemindersScreen from "./ReminderScreen";
+import MyRemindersScreen from "../screens/Reminder/ReminderScreen";
 import ReminderForm from "../screens/Reminder/ReminderForm";
 import EditReminder from "../screens/Reminder/EditReminder";
 import SettingsScreen from "../screens/Settings/Settings";
@@ -35,136 +35,142 @@ export default function Tabs() {
         },
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={EntryStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="log-in-outline" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (isLoggedIn) {
-              navigation.navigate("Bot");
-            } else {
-              navigation.navigate("Home");
-            }
-          },
-        })}
-      />
-      <Tab.Screen
-        name="Bot"
-        component={BotStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="logo-electron" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Sign in .");
-              setVisible(true);
-            } else {
-              navigation.navigate("Bot");
-            }
-          },
-        })}
-      />
-      <Tab.Screen
-        name="NutrientDatabase"
-        component={NutrientDatabase}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="nutrition" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Sign in ");
-              setVisible(true);
-            } else {
-              navigation.navigate("NutrientDatabase");
-            }
-          },
-        })}
-      />
-      <Tab.Screen
-        name="Reminders"
-        component={ReminderStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="alarm" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Sign in ");
-              setVisible(true);
-            } else {
-              navigation.navigate("Reminders");
-            }
-          },
-        })}
-      />
-      <Tab.Screen
-        name="Goal"
-        component={Goal}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="trophy-outline" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Sign in");
-              setVisible(true);
-            } else {
-              navigation.navigate("Goal");
-            }
-          },
-        })}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="settings" size={24} color={color} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-              navigation.navigate("Home");
-              setErrorMessage("Sign in");
-              setVisible(true);
-            } else {
-              navigation.navigate("Settings");
-            }
-          },
-        })}
-      />
+      {isLoggedIn ? null : (
+        <Tab.Screen
+          name="Home"
+          component={EntryStack}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="log-in-outline" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (isLoggedIn) {
+                navigation.navigate("Bot");
+              } else {
+                navigation.navigate("Home");
+              }
+            },
+          })}
+        />
+      )}
+
+      <>
+        <Tab.Screen
+          name="Bot"
+          component={BotStack}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="logo-electron" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (!isLoggedIn) {
+                navigation.navigate("Home");
+                setErrorMessage("Sign in .");
+                setVisible(true);
+              } else {
+                navigation.navigate("Bot");
+              }
+            },
+          })}
+        />
+
+        <Tab.Screen
+          name="NutrientDatabase"
+          component={NutrientDatabase}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="nutrition" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (!isLoggedIn) {
+                navigation.navigate("Home");
+                setErrorMessage("Sign in ");
+                setVisible(true);
+              } else {
+                navigation.navigate("NutrientDatabase");
+              }
+            },
+          })}
+        />
+        <Tab.Screen
+          name="Reminders"
+          component={ReminderStack}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="alarm" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (!isLoggedIn) {
+                navigation.navigate("Home");
+                setErrorMessage("Sign in ");
+                setVisible(true);
+              } else {
+                navigation.navigate("Reminders");
+              }
+            },
+          })}
+        />
+        <Tab.Screen
+          name="Goal"
+          component={Goal}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="trophy-outline" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (!isLoggedIn) {
+                navigation.navigate("Home");
+                setErrorMessage("Sign in");
+                setVisible(true);
+              } else {
+                navigation.navigate("Goal");
+              }
+            },
+          })}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsStack}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="settings" size={24} color={color} />
+            ),
+          }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              if (!isLoggedIn) {
+                navigation.navigate("Home");
+                setErrorMessage("Sign in");
+                setVisible(true);
+              } else {
+                navigation.navigate("Settings");
+              }
+            },
+          })}
+        />
+      </>
     </Tab.Navigator>
   );
 }
@@ -185,7 +191,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "white", // makes the back arrow white
+          headerTintColor: "black", // makes the back arrow white
           headerStyle: {
             backgroundColor: "transparent",
           },
@@ -200,7 +206,7 @@ function EntryStack() {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitleVisible: false,
-          headerTintColor: "white", // back arrow color
+          headerTintColor: "black", // back arrow color
           headerStyle: {
             backgroundColor: "transparent",
           },

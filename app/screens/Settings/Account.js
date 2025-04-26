@@ -4,8 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Lock, Bell } from "lucide-react-native";
 import { useState } from "react";
-import { useData } from "./context/DataContext";
-import { clearAllReminders } from "./components/ReminderManager";
+import { useData } from "../../context/DataContext";
+import { clearAllReminders } from "../../Shared/ReminderManager";
 import React from "react";
 export default function AccountSettings() {
   const navigation = useNavigation();

@@ -3,9 +3,9 @@ import { ScrollView, Platform, KeyboardAvoidingView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
-import { useData } from "./context/DataContext";
+import { useData } from "../../context/DataContext";
 import { StatusBar } from "expo-status-bar";
-import Purchase from "./components/TokenDisplay/Purchase";
+import Purchase from "../../components/TokenDisplay/Purchase";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Publisher_Key } from "@env";
 // Assuming you have a global CSS file for Tailwind CSS
@@ -42,7 +42,7 @@ export default function ChatBot() {
       >
         <SafeAreaView className="flex-1 justify-between bg-slate-100 gap-10  relative ">
           <View className="items-center justify-center mt-2 relative  shadow-sm z-10">
-            <Purchase />
+            {/* <Purchase/> */}
           </View>
           <View className="flex-1 px-4 pt-3 bg-slate-100 ">
             <ScrollView

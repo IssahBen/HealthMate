@@ -5,9 +5,11 @@ import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import * as Notifications from "expo-notifications";
 import React from "react";
+import { useColorScheme } from "react-native";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
+  const systemTheme = useColorScheme();
   const [messages, setMessages] = useState([
     {
       id: "1",
@@ -32,9 +34,10 @@ export function DataProvider({ children }) {
   const [info, setInfo] = useState("");
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoShow, setInfoShow] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(systemTheme);
   const [destroyAccount, setDestroyAccount] = useState(false);
   const [balance, setBalance] = useState("100");
+
   useEffect(() => {
     async function Setter() {
       const token = await SecureStore.getItemAsync("token");
@@ -63,12 +66,12 @@ export function DataProvider({ children }) {
         setTheme(colorScheme || "light");
       }
     })();
+    setTheme(systemTheme);
     setupNotifications();
     Setter();
   }, []);
   const toggleTheme = async () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
     await SecureStore.setItemAsync("appTheme", newTheme);
   };
   async function createUser(obj) {
@@ -76,7 +79,7 @@ export function DataProvider({ children }) {
       setIsLoading(true);
 
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/register",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/register",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -114,7 +117,7 @@ export function DataProvider({ children }) {
   async function destroySession() {
     try {
       const res = await fetch(
-        "https://7132-99-230-98-234.ngrok-free.app/api/v1/logout",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/logout",
         {
           method: "DELETE",
           headers: {
@@ -144,7 +147,7 @@ export function DataProvider({ children }) {
   async function destroyUser() {
     try {
       const res = await fetch(
-        "https://c009-99-230-98-234.ngrok-free.app/api/v1/destroy_account",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/destroy_account",
         {
           method: "DELETE",
           headers: {
@@ -175,7 +178,7 @@ export function DataProvider({ children }) {
   async function Login(obj) {
     try {
       const res = await fetch(
-        "https://c009-99-230-98-234.ngrok-free.app/api/v1/login",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/login",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -254,7 +257,7 @@ export function DataProvider({ children }) {
     console.log("Password update initiated", obj);
     try {
       const res = await fetch(
-        "https://c009-99-230-98-234.ngrok-free.app/api/v1/update_password",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/update_password",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -284,7 +287,7 @@ export function DataProvider({ children }) {
   async function TopUp(obj) {
     try {
       const res = await fetch(
-        "https://c009-99-230-98-234.ngrok-free.app/api/v1/top",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/top",
         {
           method: "POST",
           body: JSON.stringify(obj),

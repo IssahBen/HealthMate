@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import { BookOpen } from "lucide-react-native";
 
-import SearchBar from "./components/SearchBar";
-import NutrientCard from "./components/NutrientCard";
-import FilterOptions from "./components/FilterOptions";
-import RecentSearches from "./components/RecentSearches";
+import SearchBar from "../../components/Nutirent/SearchBar";
+import NutrientCard from "../../components/Nutirent/NutrientCard";
+import FilterOptions from "../../components/Nutirent/FilterOptions";
+import RecentSearches from "../../components/Nutirent/RecentSearches";
 
-import { nutrients } from "./data/nutrients";
+import { nutrients } from "../../data/nutrients";
 
 const NutrientDatabase = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,7 +77,7 @@ const NutrientDatabase = () => {
           <View className="items-center mb-4">
             <BookOpen size={48} color="white" />
           </View>
-          <Text className="text-3xl font-bold text-white text-center mb-2">
+          <Text className="text-3xl font-inter-bold text-white text-center mb-2">
             Nutrient Database
           </Text>
           <Text className="text-emerald-100 text-center mb-6 leading-relaxed">
@@ -112,7 +112,7 @@ const NutrientDatabase = () => {
             </View>
           ) : (
             <View className="py-20 items-center">
-              <Text className="text-xl font-semibold text-gray-700 mb-2">
+              <Text className="text-xl font-inter-semibold text-gray-700 mb-2">
                 No nutrients found
               </Text>
               <Text className="text-gray-500 text-center max-w-sm">

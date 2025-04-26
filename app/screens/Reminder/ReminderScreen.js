@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import * as Notifications from "expo-notifications";
-import { getReminders, deleteReminder } from "./components/ReminderManager";
+import { getReminders, deleteReminder } from "../../Shared/ReminderManager";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

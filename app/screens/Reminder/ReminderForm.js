@@ -9,7 +9,7 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Notifications from "expo-notifications";
 import uuid from "react-native-uuid";
-import { saveReminder } from "./components/ReminderManager";
+import { saveReminder } from "../../Shared/ReminderManager";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

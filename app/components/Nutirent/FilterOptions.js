@@ -30,7 +30,7 @@ const FilterOptions = ({ selectedCategory, onCategoryChange }) => {
             }`}
           >
             <Text
-              className={`text-sm font-medium ${
+              className={`text-sm font-inter-medium ${
                 isSelected ? "text-white" : "text-gray-600"
               }`}
             >

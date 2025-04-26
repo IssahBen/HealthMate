@@ -8,7 +8,7 @@ const RecentSearches = ({ searches, onSearchSelect, onClear }) => {
   return (
     <View className="mt-4 px-4 w-full max-w-2xl self-center">
       <View className="flex-row justify-between items-center mb-2">
-        <Text className="text-sm font-medium text-gray-500">
+        <Text className="text-sm font-inter-medium text-gray-500">
           Recent Searches
         </Text>
         <TouchableOpacity onPress={onClear}>

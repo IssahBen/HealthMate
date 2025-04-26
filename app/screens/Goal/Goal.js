@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { GoalProvider } from "../../context/GoalContext";
 import Header from "../../components/Goal/Header";
-import GoalForm from "../../components/GoalForm";
+import GoalForm from "../../components/Goal/GoalForm";
 import GoalList from "../../components/Goal/GoalList";
 import { SafeAreaView } from "react-native-safe-area-context";
 

@@ -10,8 +10,8 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Camera, ArrowLeft } from "lucide-react-native";
-import { useData } from "./context/DataContext";
-import ErrorMessage from "./context/ErrorMessage";
+import { useData } from "../../context/DataContext";
+import ErrorMessage from "../../context/ErrorMessage";
 export default function ProfileSettings() {
   const navigation = useNavigation();
   const {

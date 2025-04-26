@@ -10,7 +10,7 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import * as Notifications from "expo-notifications";
-import { updateReminder } from "./components/ReminderManager";
+import { updateReminder } from "../../Shared/ReminderManager";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const EditReminder = () => {

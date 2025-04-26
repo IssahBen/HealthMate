@@ -4,7 +4,7 @@ import { View, Text, Pressable, Alert } from "react-native";
 import { Trash2, RefreshCw } from "lucide-react-native";
 import ProgressBar from "./ProgessBar";
 import BoxGrid from "./BoxGrid";
-import { calculateProgress, formatDate } from "../context/generatedId";
+import { calculateProgress, formatDate } from "../../context/generatedId";
 
 const GoalItem = ({ goal, isActive, onSelect, onReset, onDelete }) => {
   const { id, title, totalHours, hoursPerDay, progress, createdAt } = goal;
@@ -32,7 +32,9 @@ const GoalItem = ({ goal, isActive, onSelect, onReset, onDelete }) => {
     >
       <View className="flex-row justify-between items-start">
         <View>
-          <Text className="text-lg font-semibold text-gray-800">{title}</Text>
+          <Text className="text-lg font-inter-semibold text-gray-800">
+            {title}
+          </Text>
           <Text className="text-sm text-gray-500 mt-1">
             Created on {formatDate(createdAt)}
           </Text>
@@ -59,15 +61,15 @@ const GoalItem = ({ goal, isActive, onSelect, onReset, onDelete }) => {
       <View className="mt-3 flex flex-col md:flex-row gap-2">
         <View className="bg-gray-50 p-2 rounded-md items-center">
           <Text className="text-xs text-gray-500">Total Hours</Text>
-          <Text className="text-lg font-semibold">{totalHours}</Text>
+          <Text className="text-lg font-inter-semibold">{totalHours}</Text>
         </View>
         <View className="bg-gray-50 p-2 rounded-md items-center">
           <Text className="text-xs text-gray-500">Hours Per Day</Text>
-          <Text className="text-lg font-semibold">{hoursPerDay}</Text>
+          <Text className="text-lg font-inter-semibold">{hoursPerDay}</Text>
         </View>
         <View className="bg-gray-50 p-2 rounded-md items-center">
           <Text className="text-xs text-gray-500">Completed</Text>
-          <Text className="text-lg font-semibold">
+          <Text className="text-lg font-inter-semibold">
             {completedHours}/{totalHours}
           </Text>
         </View>

@@ -16,7 +16,7 @@ import {
   CircleCheck as CheckCircle2,
 } from "lucide-react-native";
 import { useState } from "react";
-import { useData } from "./context/DataContext";
+import { useData } from "../../context/DataContext";
 import React from "react";
 export default function ChangePasswordScreen() {
   const navigation = useNavigation();

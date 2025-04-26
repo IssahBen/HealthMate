@@ -46,6 +46,7 @@ export const GoalProvider = ({ children }) => {
   }, [goals]);
 
   useEffect(() => {
+    if (!destroyAccount) return;
     const deleteAllGoals = async () => {
       console.log("Deleting all goals...");
       try {
@@ -59,7 +60,6 @@ export const GoalProvider = ({ children }) => {
       }
     };
     deleteAllGoals();
-    return () => setDestroyAccount(false);
   }, [destroyAccount]);
 
   const addGoal = (title, totalHours, hoursPerDay) => {
