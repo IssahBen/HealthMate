@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeIn } from "react-native-reanimated";
 import React from "react";
-// eslint-disable-next-line react/prop-types
+
 export default function ChatInput({ onSend }) {
   const [message, setMessage] = useState("");
 
@@ -17,22 +17,27 @@ export default function ChatInput({ onSend }) {
   return (
     <Animated.View
       entering={FadeIn}
-      className="p-4 border-t border-gray-200 bg-white "
+      className="px-4 pb-4 pt-2 bg-white/90 border-t border-gray-100 shadow-sm rounded-t-2xl"
     >
-      <View className="flex-row items-end">
+      <View className="flex-row items-end bg-white/70 backdrop-blur-md p-2 rounded-3xl shadow-md">
         <TextInput
-          className="flex-1 bg-gray-100 rounded-2xl px-4 py-2 mr-2 text-base max-h-24"
+          className="flex-1 text-base text-gray-800 px-4 py-2 rounded-2xl bg-gray-100"
           value={message}
           onChangeText={setMessage}
-          placeholder="Type a message..."
-          placeholderTextColor="#9ca3af"
+          placeholder="Ask me anything..."
+          placeholderTextColor="#a1a1aa"
           multiline
           maxLength={500}
           onSubmitEditing={handleSend}
+          style={{
+            fontFamily: "Inter-Regular",
+          }}
         />
         <TouchableOpacity
-          className={`w-10 h-10 rounded-full justify-center items-center ${
-            message.trim() ? "bg-indigo-500" : "bg-gray-200"
+          className={`ml-2 w-11 h-11 rounded-full justify-center items-center shadow-md ${
+            message.trim()
+              ? "bg-gradient-to-br from-rose-500 to-pink-500"
+              : "bg-gray-200"
           }`}
           onPress={handleSend}
           disabled={!message.trim()}
@@ -40,7 +45,7 @@ export default function ChatInput({ onSend }) {
           <Ionicons
             name="send"
             size={20}
-            color={message.trim() ? "#ffffff" : "#9ca3af"}
+            color={message.trim() ? "#fff" : "#9ca3af"}
           />
         </TouchableOpacity>
       </View>

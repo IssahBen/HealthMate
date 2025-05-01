@@ -28,11 +28,11 @@ export default function Home() {
             {/* Header */}
             <ErrorMessage />
             <View className="flex-row items-center gap-3 mt-4">
-              <View className="h-12 w-12 bg-cyan-500 rounded-full items-center justify-center">
-                <Text className="text-white text-xl font-inter-bold">P</Text>
+              <View className="h-12 w-12 bg-cyan-600 rounded-full items-center justify-center">
+                <Text className="text-white text-xl font-inter-bold">E</Text>
               </View>
-              <Text className="text-white text-3xl font-inter-extrabold">
-                PUSH
+              <Text className="text-white text-2xl font-font-inter-extrabold">
+                ELIXIR
               </Text>
             </View>
 

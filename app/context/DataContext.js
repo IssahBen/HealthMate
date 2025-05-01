@@ -284,10 +284,11 @@ export function DataProvider({ children }) {
       return "error";
     }
   }
-  async function TopUp(obj) {
+  async function call(obj) {
     try {
+      console.log(5);
       const res = await fetch(
-        "https://deep-boxer-heavily.ngrok-free.app/api/v1/top",
+        "https://deep-boxer-heavily.ngrok-free.app/api/v1/call",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -300,9 +301,9 @@ export function DataProvider({ children }) {
       );
       const data = await res.json();
       if (data.message) {
-        return "success";
+        return data.message;
       } else {
-        setErrorMessage(data.errors.join("||"));
+        setErrorMessage(data.error);
         setVisible(true);
         console.log("error");
         return "error";
@@ -387,7 +388,8 @@ export function DataProvider({ children }) {
     destroyUser,
     balance,
     setBalance,
-    TopUp,
+
+    call,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
