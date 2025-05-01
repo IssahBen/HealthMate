@@ -17,34 +17,33 @@ export default function ChatInput({ onSend }) {
   return (
     <Animated.View
       entering={FadeIn}
-      className="px-4 pb-4 pt-2 bg-white/90 border-t border-gray-100 shadow-sm rounded-t-2xl"
+      className="px-4 pb-6 pt-4 bg-white border-t border-gray-100 shadow-lg"
     >
-      <View className="flex-row items-end bg-white/70 backdrop-blur-md p-2 rounded-3xl shadow-md">
+      <View className="flex-row items-end bg-white p-2 rounded-xl shadow-sm border border-gray-100">
         <TextInput
-          className="flex-1 text-base text-gray-800 px-4 py-2 rounded-2xl bg-gray-100"
+          className="flex-1 text-base text-gray-800 px-4 py-3 rounded-xl bg-gray-50"
           value={message}
           onChangeText={setMessage}
           placeholder="Ask me anything..."
-          placeholderTextColor="#a1a1aa"
+          placeholderTextColor="#9ca3af"
           multiline
           maxLength={500}
           onSubmitEditing={handleSend}
           style={{
             fontFamily: "Inter-Regular",
+            maxHeight: 120,
           }}
         />
         <TouchableOpacity
-          className={`ml-2 w-11 h-11 rounded-full justify-center items-center shadow-md ${
-            message.trim()
-              ? "bg-gradient-to-br from-rose-500 to-pink-500"
-              : "bg-gray-200"
+          className={`ml-3 w-12 h-12 rounded-full justify-center items-center ${
+            message.trim() ? "bg-gray-800 shadow-md" : "bg-gray-200"
           }`}
           onPress={handleSend}
           disabled={!message.trim()}
         >
           <Ionicons
             name="send"
-            size={20}
+            size={22}
             color={message.trim() ? "#fff" : "#9ca3af"}
           />
         </TouchableOpacity>

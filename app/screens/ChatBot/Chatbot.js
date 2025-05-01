@@ -12,7 +12,6 @@ import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import { useData } from "../../context/DataContext";
 import { StatusBar } from "expo-status-bar";
-import Purchase from "../../components/TokenDisplay/Purchase";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Publisher_Key } from "@env";
 
@@ -45,29 +44,31 @@ export default function ChatBot() {
 
   return (
     <StripeProvider publishableKey={Publisher_Key}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1 bg-[#0d1b16]" // dark green background
+        className="flex-1 bg-white"
       >
         <SafeAreaView className="flex-1 relative">
           {/* Header */}
-          <View className="items-center justify-center mt-2 z-10">
-            <View className="bg-[#122d24] px-6 py-2 rounded-2xl shadow-lg border border-green-500">
-              <Text className="text-green-400 text-3xl font-extrabold tracking-widest">
+          <View className="items-center justify-center mt-4 z-10">
+            <View className="bg-white px-8 py-3 rounded-full shadow-sm border border-gray-100 relative">
+              <Text className="text-gray-800 text-2xl font-light tracking-widest">
                 ELIXIR
               </Text>
+              {/* Replaced gradient line with simple border */}
+              <View className="absolute -bottom-0.5 w-full h-px bg-gray-200" />
             </View>
           </View>
 
           {/* Message area */}
-          <View className="flex-1 pt-2">
+          <View className="flex-1 pt-4">
             <ScrollView
               ref={scrollViewRef}
               contentContainerStyle={{
-                paddingVertical: 12,
-                paddingHorizontal: 8,
-                gap: 12,
+                paddingVertical: 16,
+                paddingHorizontal: 16,
+                gap: 16,
                 flexGrow: 1,
               }}
               showsVerticalScrollIndicator={false}
@@ -85,18 +86,15 @@ export default function ChatBot() {
               ))}
               {isLoading && (
                 <View className="flex-row items-center px-4">
-                  <ActivityIndicator size="small" color="#22c55e" />{" "}
-                  {/* green-500 */}
-                  <Text className="ml-2 text-gray-300 italic">
-                    Bot is thinking...
-                  </Text>
+                  <ActivityIndicator size="small" color="#22c55e" />
+                  <Text className="ml-2 text-gray-300 italic">thinking...</Text>
                 </View>
               )}
             </ScrollView>
           </View>
 
           {/* Input area */}
-          <View className="bg-[#122d24] border-t border-green-800 px-2 pt-2 pb-3 rounded-t-3xl shadow-xl">
+          <View className="bg-white border-t border-gray-100 px-4 pt-4 pb-6 shadow-lg">
             <ChatInput onSend={handleSend} />
           </View>
         </SafeAreaView>
