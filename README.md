@@ -1,6 +1,6 @@
 # 🩺 HealthMate
 
-**Elixir Ai Health App Demo** is a full-stack AI-powered health assistant app that empowers users to manage their well-being through smart symptom analysis, medication reminders, and nutrition tracking.
+**HealthMate** is a full-stack AI-powered health assistant app that empowers users to manage their well-being through smart symptom analysis, medication reminders, and nutrition tracking.
 
 Built using:
 - 📱 React Native (Frontend)
